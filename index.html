@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>फेयर ट्रेड कमेटी चुनाव - मतदान फॉर्म</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
   :root {
     --primary: #1e7d42;
@@ -44,7 +45,7 @@
     opacity: 0.06;
     pointer-events: none;
   }
-  .sheet > * {
+  .sheet > *:not(.watermark) {
     position: relative;
     z-index: 1;
   }
@@ -237,7 +238,7 @@
   }
   .candidate-table-header {
     display: grid;
-    grid-template-columns: 50px 80px 110px 1.3fr 1.4fr 1.3fr 70px;
+    grid-template-columns: 50px 80px 110px 1.3fr 1.4fr 1.3fr;
     gap: 8px;
     padding: 10px 12px;
     background: var(--primary);
@@ -249,7 +250,7 @@
   }
   .candidate-row {
     display: grid;
-    grid-template-columns: 50px 80px 110px 1.3fr 1.4fr 1.3fr 70px;
+    grid-template-columns: 50px 80px 110px 1.3fr 1.4fr 1.3fr;
     gap: 8px;
     align-items: center;
     padding: 10px 12px;
@@ -551,7 +552,6 @@
       <div>उम्मीदवार का नाम</div>
       <div>विभाग</div>
       <div>पदनाम</div>
-      <div>वोट</div>
     </div>
     
     <div class="candidate-row" data-sno="1">
@@ -566,7 +566,6 @@
       <div class="col name">शाहरुख</div>
       <div class="col dept">प्रोडक्शन-टर्निंग</div>
       <div class="col desig">लेथ मशीन ऑपरेटर</div>
-      <div class="col votecount">0</div>
     </div>
     
     <div class="candidate-row" data-sno="2">
@@ -581,7 +580,6 @@
       <div class="col name">अमरीन</div>
       <div class="col dept">पेस्टिंग</div>
       <div class="col desig">असिस्टेंट चेकर</div>
-      <div class="col votecount">0</div>
     </div>
     
     <div class="candidate-row" data-sno="3">
@@ -596,7 +594,6 @@
       <div class="col name">अजय सिंह</div>
       <div class="col dept">क्वालिटी</div>
       <div class="col desig">चेकर</div>
-      <div class="col votecount">0</div>
     </div>
     
     <div class="candidate-row" data-sno="4">
@@ -611,7 +608,6 @@
       <div class="col name">प्रीति रानी</div>
       <div class="col dept">क्वालिटी-प्रोडक्शन</div>
       <div class="col desig">असिस्टेंट चेकर</div>
-      <div class="col votecount">0</div>
     </div>
     
     <div class="candidate-row" data-sno="5">
@@ -626,7 +622,6 @@
       <div class="col name">शिव शंकर</div>
       <div class="col dept">क्वालिटी-प्रोडक्शन</div>
       <div class="col desig">चेकर</div>
-      <div class="col votecount">0</div>
     </div>
     
     <div class="candidate-row" data-sno="6">
@@ -641,7 +636,6 @@
       <div class="col name">चंद्रवीर</div>
       <div class="col dept">डिस्पैच</div>
       <div class="col desig">सुपरवाइज़र</div>
-      <div class="col votecount">0</div>
     </div>
     
     <div class="candidate-row" data-sno="7">
@@ -656,7 +650,6 @@
       <div class="col name">धर्मेंद्र सिंह</div>
       <div class="col dept">डिस्पैच-एक्सेसरीज़</div>
       <div class="col desig">हेल्पर</div>
-      <div class="col votecount">0</div>
     </div>
     
     <div class="candidate-row" data-sno="8">
@@ -671,7 +664,6 @@
       <div class="col name">राजेंद्र प्रसाद</div>
       <div class="col dept">लाइटिंग</div>
       <div class="col desig">असेंबलर</div>
-      <div class="col votecount">0</div>
     </div>
     
     <div class="candidate-row" data-sno="9">
@@ -686,7 +678,6 @@
       <div class="col name">सूरज प्रताप सिंह</div>
       <div class="col dept">लाइटिंग</div>
       <div class="col desig">असेंबलर</div>
-      <div class="col votecount">0</div>
     </div>
     
     <div class="candidate-row" data-sno="10">
@@ -701,7 +692,6 @@
       <div class="col name">गुड़िया</div>
       <div class="col dept">प्रोडक्शन-ग्राइंडिंग</div>
       <div class="col desig">हेल्पर</div>
-      <div class="col votecount">0</div>
     </div>
     
     <div class="candidate-row" data-sno="11">
@@ -716,7 +706,6 @@
       <div class="col name">सुरेश कुमार</div>
       <div class="col dept">पॉलिश</div>
       <div class="col desig">हेल्पर</div>
-      <div class="col votecount">0</div>
     </div>
     
     <div class="candidate-row" data-sno="12">
@@ -731,7 +720,6 @@
       <div class="col name">अनिकेश</div>
       <div class="col dept">लाकर-एक्सेसरीज़</div>
       <div class="col desig">पेंटर</div>
-      <div class="col votecount">0</div>
     </div>
     
   </div>
@@ -750,17 +738,25 @@
   <div class="admin-box">
     <button type="button" class="admin-close" id="adminCloseBtn">&times;</button>
     <div class="admin-title">मतदान परिणाम / Voting Results</div>
-    <div class="admin-sub">यहाँ से आप वोटों की गिनती देख सकते हैं और पूरा विवरण (किसने किसे वोट दिया) Excel में डाउनलोड कर सकते हैं।</div>
-    <div class="admin-total" id="adminTotal">कुल वोट: 0</div>
-    <table class="admin-table" id="adminSummaryTable">
-      <thead><tr><th>क्र.सं.</th><th>उम्मीदवार</th><th>विभाग</th><th>वोट</th></tr></thead>
-      <tbody id="adminSummaryBody"></tbody>
-    </table>
-    <div class="admin-btn-row">
-      <button type="button" class="admin-btn download" id="downloadDetailBtn">⬇ पूरा विवरण Excel / Full Detail</button>
-      <button type="button" class="admin-btn summary" id="downloadSummaryBtn">⬇ सारांश Excel / Summary</button>
+    <div class="admin-sub">यह अनुभाग केवल कमेटी ओनर के लिए सुरक्षित है। कृपया अपने अधिकृत Google खाते से साइन इन करें।</div>
+
+    <div id="signinSection" style="text-align:center; padding: 18px 0;">
+      <div id="g_id_signin"></div>
+      <div id="signinMsg" style="margin-top:12px; font-size:13px; font-weight:600;"></div>
     </div>
-    <button type="button" class="admin-btn reset" id="resetVotesBtn">🗑 सभी वोट मिटाएँ / Reset All Votes</button>
+
+    <div id="resultsSection" style="display:none;">
+      <div class="admin-total" id="adminTotal">कुल वोट: 0</div>
+      <table class="admin-table" id="adminSummaryTable">
+        <thead><tr><th>क्र.सं.</th><th>उम्मीदवार</th><th>विभाग</th><th>वोट</th></tr></thead>
+        <tbody id="adminSummaryBody"></tbody>
+      </table>
+      <div class="admin-btn-row">
+        <button type="button" class="admin-btn download" id="downloadDetailBtn">⬇ पूरा विवरण Excel / Full Detail</button>
+        <button type="button" class="admin-btn summary" id="downloadSummaryBtn">⬇ सारांश Excel / Summary</button>
+      </div>
+      <button type="button" class="admin-btn reset" id="resetVotesBtn">🗑 सभी वोट मिटाएँ / Reset All Votes</button>
+    </div>
   </div>
 </div>
 
@@ -788,33 +784,89 @@
     });
   });
 
+  /* ================= CONFIG — deployment के बाद ये दोनों values भरें ================= */
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwDPTwCq_AWZFfjJIcv2elwbqcHcvPgvWDHXBC-cge7s33A5SEXkSpYHIQcAxVduV9P/exec';
+  const GOOGLE_CLIENT_ID = '373992815695-kiprvl40os0p42b9j0gglv3ildjk43kj.apps.googleusercontent.com';
+  /* ==================================================================================== */
+
   submitBtn.addEventListener('click', () => {
     if (!selected) return;
     const voterCard = cardInput.value || '';
     const voterName = document.getElementById('voterName').value || '(दर्ज नहीं)';
     const voterDeptVal = document.getElementById('voterDept').value || '';
-    confirmBox.style.display = 'block';
-    confirmBox.textContent = '✅ धन्यवाद ' + voterName + ' जी! आपका वोट "' + selected.name + '" के लिए सफलतापूर्वक दर्ज कर लिया गया है।';
+
     submitBtn.disabled = true;
+    submitBtn.textContent = 'सबमिट हो रहा है... / Submitting...';
     buttons.forEach(b => b.style.pointerEvents = 'none');
-    recordVote(voterCard, voterName, voterDeptVal, selected.sno, selected.name);
+
+    recordVote(voterCard, voterName, voterDeptVal, selected.sno, selected.name)
+      .then(res => {
+        if (res && res.success) {
+          confirmBox.style.display = 'block';
+          confirmBox.style.background = '#e6f4ea';
+          confirmBox.style.borderColor = 'var(--success)';
+          confirmBox.style.color = '#145a24';
+          confirmBox.textContent = '✅ धन्यवाद ' + voterName + ' जी! आपका वोट "' + selected.name + '" के लिए सफलतापूर्वक दर्ज कर लिया गया है। अगला वोटर 5 सेकंड में तैयार हो जाएगा...';
+          resetFormForNextVoter();
+        } else {
+          const msg = (res && res.message_hi) ? res.message_hi : 'वोट दर्ज करने में समस्या हुई। कृपया दोबारा प्रयास करें। / Something went wrong. Please try again.';
+          confirmBox.style.display = 'block';
+          confirmBox.style.background = '#fdecea';
+          confirmBox.style.borderColor = '#b3261e';
+          confirmBox.style.color = '#8d1e18';
+          confirmBox.textContent = '❌ ' + msg;
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'वोट सबमिट करें / Submit Vote';
+          buttons.forEach(b => b.style.pointerEvents = 'auto');
+        }
+      })
+      .catch(() => {
+        confirmBox.style.display = 'block';
+        confirmBox.style.background = '#fdecea';
+        confirmBox.style.borderColor = '#b3261e';
+        confirmBox.style.color = '#8d1e18';
+        confirmBox.textContent = '❌ नेटवर्क त्रुटि, कृपया दोबारा प्रयास करें। / Network error, please try again.';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'वोट सबमिट करें / Submit Vote';
+        buttons.forEach(b => b.style.pointerEvents = 'auto');
+      });
   });
 
-  /* ---------- Vote counting + Admin/Results panel ---------- */
-  const VOTES_KEY = 'ftc_votes_2026';
-
-  function getVotes() {
-    try {
-      return JSON.parse(localStorage.getItem(VOTES_KEY)) || [];
-    } catch (e) {
-      return [];
-    }
+  /* ---------- Vote submission (central storage via Google Sheet) ---------- */
+  function resetFormForNextVoter() {
+    setTimeout(() => {
+      selected = null;
+      cardInput.value = '';
+      document.getElementById('voterName').value = '';
+      document.getElementById('voterDept').value = '';
+      lookupMsg.textContent = '';
+      lookupMsg.className = 'lookup-msg';
+      buttons.forEach(b => {
+        b.classList.remove('selected');
+        b.closest('.candidate-row').classList.remove('selected');
+        b.style.pointerEvents = 'auto';
+      });
+      statusText.innerHTML = 'कोई उम्मीदवार चयनित नहीं / No candidate selected';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'वोट सबमिट करें / Submit Vote';
+      confirmBox.style.display = 'none';
+      cardInput.focus();
+    }, 5000);
   }
 
-  function saveVotes(votes) {
-    try {
-      localStorage.setItem(VOTES_KEY, JSON.stringify(votes));
-    } catch (e) {}
+  function recordVote(voterCard, voterName, voterDept, candSno, candName) {
+    return fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // avoids CORS preflight to Apps Script
+      body: JSON.stringify({
+        action: 'vote',
+        voterCard: voterCard,
+        voterName: voterName,
+        voterDept: voterDept,
+        candidateSno: candSno,
+        candidateName: candName
+      })
+    }).then(r => r.json());
   }
 
   function getCandidateList() {
@@ -826,32 +878,7 @@
     }));
   }
 
-  function recordVote(voterCard, voterName, voterDept, candSno, candName) {
-    const votes = getVotes();
-    votes.push({
-      time: new Date().toLocaleString('hi-IN'),
-      voterCard: voterCard,
-      voterName: voterName,
-      voterDept: voterDept,
-      candidateSno: candSno,
-      candidateName: candName
-    });
-    saveVotes(votes);
-    updateVoteCounts();
-  }
-
-  function updateVoteCounts() {
-    const votes = getVotes();
-    const tally = {};
-    votes.forEach(v => { tally[v.candidateSno] = (tally[v.candidateSno] || 0) + 1; });
-    document.querySelectorAll('.candidate-row').forEach(row => {
-      const sno = row.dataset.sno;
-      const el = row.querySelector('.votecount');
-      if (el) el.textContent = tally[sno] || 0;
-    });
-  }
-
-  /* ---------- Admin tab / results panel ---------- */
+  /* ---------- Admin tab / results panel (owner-only, Google Sign-In gated) ---------- */
   const adminTabBtn = document.getElementById('adminTabBtn');
   const adminOverlay = document.getElementById('adminOverlay');
   const adminCloseBtn = document.getElementById('adminCloseBtn');
@@ -860,21 +887,21 @@
   const downloadDetailBtn = document.getElementById('downloadDetailBtn');
   const downloadSummaryBtn = document.getElementById('downloadSummaryBtn');
   const resetVotesBtn = document.getElementById('resetVotesBtn');
+  const signinSection = document.getElementById('signinSection');
+  const resultsSection = document.getElementById('resultsSection');
+  const signinMsg = document.getElementById('signinMsg');
 
-  function renderAdminPanel() {
-    const votes = getVotes();
-    const candidates = getCandidateList();
-    const tally = {};
-    votes.forEach(v => { tally[v.candidateSno] = (tally[v.candidateSno] || 0) + 1; });
-    adminTotal.textContent = 'कुल वोट / Total Votes: ' + votes.length;
-    adminSummaryBody.innerHTML = candidates.map(c =>
-      '<tr><td>' + c.sno + '</td><td>' + c.name + '</td><td>' + c.dept + '</td><td>' + (tally[c.sno] || 0) + '</td></tr>'
-    ).join('');
-  }
+  let currentIdToken = null;
+  let lastVotes = [];
 
   adminTabBtn.addEventListener('click', () => {
-    renderAdminPanel();
     adminOverlay.classList.add('active');
+    signinSection.style.display = 'block';
+    resultsSection.style.display = 'none';
+    signinMsg.textContent = '';
+    if (window.google && google.accounts) {
+      renderGoogleButton();
+    }
   });
 
   adminCloseBtn.addEventListener('click', () => {
@@ -885,10 +912,57 @@
     if (e.target === adminOverlay) adminOverlay.classList.remove('active');
   });
 
+  function renderGoogleButton() {
+    const container = document.getElementById('g_id_signin');
+    container.innerHTML = '';
+    google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: handleCredentialResponse
+    });
+    google.accounts.id.renderButton(container, { theme: 'outline', size: 'large', text: 'signin_with' });
+  }
+
+  function handleCredentialResponse(response) {
+    currentIdToken = response.credential;
+    signinMsg.style.color = 'var(--primary-dark)';
+    signinMsg.textContent = 'जांच हो रही है... / Verifying...';
+    fetchResults(currentIdToken);
+  }
+
+  function fetchResults(token) {
+    const url = APPS_SCRIPT_URL + '?action=results&token=' + encodeURIComponent(token);
+    fetch(url, { method: 'GET' })
+      .then(r => r.json())
+      .then(data => {
+        if (data && data.success) {
+          lastVotes = data.votes || [];
+          signinSection.style.display = 'none';
+          resultsSection.style.display = 'block';
+          renderAdminPanel(lastVotes);
+        } else {
+          signinMsg.style.color = '#b3261e';
+          signinMsg.textContent = '❌ आप अधिकृत नहीं हैं। यह अनुभाग केवल कमेटी ओनर के लिए है। / You are not authorized. This section is owner-only.';
+        }
+      })
+      .catch(() => {
+        signinMsg.style.color = '#b3261e';
+        signinMsg.textContent = '❌ नेटवर्क त्रुटि / Network error';
+      });
+  }
+
+  function renderAdminPanel(votes) {
+    const candidates = getCandidateList();
+    const tally = {};
+    votes.forEach(v => { tally[v.candidateSno] = (tally[v.candidateSno] || 0) + 1; });
+    adminTotal.textContent = 'कुल वोट / Total Votes: ' + votes.length;
+    adminSummaryBody.innerHTML = candidates.map(c =>
+      '<tr><td>' + c.sno + '</td><td>' + c.name + '</td><td>' + c.dept + '</td><td>' + (tally[c.sno] || 0) + '</td></tr>'
+    ).join('');
+  }
+
   downloadDetailBtn.addEventListener('click', () => {
-    const votes = getVotes();
-    if (!votes.length) { alert('अभी तक कोई वोट दर्ज नहीं हुआ / No votes recorded yet'); return; }
-    const rows = votes.map((v, i) => ({
+    if (!lastVotes.length) { alert('अभी तक कोई वोट दर्ज नहीं हुआ / No votes recorded yet'); return; }
+    const rows = lastVotes.map((v, i) => ({
       'क्र.सं. / S.No': i + 1,
       'समय / Time': v.time,
       'वोटर कार्ड नं. / Voter Card No': v.voterCard,
@@ -904,10 +978,9 @@
   });
 
   downloadSummaryBtn.addEventListener('click', () => {
-    const votes = getVotes();
     const candidates = getCandidateList();
     const tally = {};
-    votes.forEach(v => { tally[v.candidateSno] = (tally[v.candidateSno] || 0) + 1; });
+    lastVotes.forEach(v => { tally[v.candidateSno] = (tally[v.candidateSno] || 0) + 1; });
     const rows = candidates.map(c => ({
       'क्र.सं. / S.No': c.sno,
       'उम्मीदवार / Candidate': c.name,
@@ -922,13 +995,19 @@
 
   resetVotesBtn.addEventListener('click', () => {
     if (!confirm('क्या आप वाकई सभी वोट मिटाना चाहते हैं? यह क्रिया वापस नहीं हो सकती। / Are you sure you want to delete all votes? This cannot be undone.')) return;
-    saveVotes([]);
-    updateVoteCounts();
-    renderAdminPanel();
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'reset', token: currentIdToken })
+    }).then(r => r.json()).then(data => {
+      if (data && data.success) {
+        lastVotes = [];
+        renderAdminPanel(lastVotes);
+      } else {
+        alert('रीसेट नहीं हो सका / Could not reset');
+      }
+    });
   });
-
-  // Initialize vote counts on page load
-  updateVoteCounts();
 
   /* ---------- Worker list upload (Excel/CSV) ---------- */
   // Expected columns in order: Card No | Name | Department (header row optional)
